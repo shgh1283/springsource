@@ -8,9 +8,10 @@ import java.util.stream.LongStream;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import com.example.project2.entity.Board;
-import com.example.project2.entity.Memo;
 
 @SpringBootTest
 public class BoardRepositoryTest {
@@ -22,7 +23,7 @@ public class BoardRepositoryTest {
     @Test
     public void insertTest() {
 
-        IntStream.rangeClosed(1, 20).forEach(i -> {
+        IntStream.rangeClosed(1, 300).forEach(i -> {
             Board board = Board.builder()
                     .title("Title...." + i)
                     .content("Content...." + i)
@@ -56,5 +57,30 @@ public class BoardRepositoryTest {
     @Test
     public void deleteTest() {
         boardRepository.deleteById(15L);
+    }
+
+    // 쿼리 메소드
+    @Test
+    public void testTitleList() {
+        // boardRepository.findByTitle("Title....").forEach(b -> System.out.println(b));
+        // boardRepository.findByWriterEndingWith.forEach(b->System.out.println(b));
+        // boardRepository.findByWriterContaining("user").forEach(b ->
+        // System.out.println(b));
+        boardRepository.findByWriterContainingOrTitleContaining("user",
+                "Title").forEach(b -> System.out.println(b));
+
+        // boardRepository.findByTitleContainingAndIdGreaterThan("Title", 10L).forEach(b
+        // -> System.out.println(b));
+
+        // boardRepository.findByIdGreaterThanOrderByIdDesc(10L).forEach(b ->
+        // System.out.println(b));
+
+        // 0 : 1 page 의미 , pageSize : 한 페이지에 보여질 게시물 개수
+        // Pageable pageable = PageRequest.of(0, 10);
+
+        // boardRepository.findByIdGreaterThanOrderByIdDesc(0L, pageable).forEach(b ->
+        // System.out.println(b));
+
+        // boardRepository.findByWriterList("user").forEach(b -> System.out.println(b));
     }
 }

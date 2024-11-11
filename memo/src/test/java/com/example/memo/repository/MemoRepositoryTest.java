@@ -50,4 +50,14 @@ public class MemoRepositoryTest {
         // 메모 삭제
         memoRepository.deleteById(30L);
     }
+
+    // 쿼리 메소드 테스트
+    @Test
+    public void testQueryMethod() {
+        // memoRepository.findByMnoLessThan(5L).forEach(m -> System.out.println(m));
+
+        // memoRepository.findByMnoLessThanOrderByIdDesc(50L).forEach(m
+        // ->System.out.println(m));
+        memoRepository.findByMnoBetween(5L, 10L).forEach(m -> System.out.println(m));
+    }
 }
