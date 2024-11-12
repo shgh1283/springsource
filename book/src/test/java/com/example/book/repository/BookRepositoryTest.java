@@ -121,7 +121,21 @@ public class BookRepositoryTest {
         // 1 page / 20개 최신 도서정보
         // Pageable pageable = PageRequest.of(0, 0,Direction.DESC);
         Pageable pageable = PageRequest.of(0, 20, Sort.by("id").descending());
-        Page<Book> result = bookRepository.findAll(pageable);
+        Page<Book> result = bookRepository.findAll(bookRepository.makePredicate(null, null), pageable);
+
+        System.out.println("TotalElements" + result.getTotalElements());
+        System.out.println("TotalPage" + result.getTotalPages());
+        result.getContent().forEach(book -> System.out.println(book));
+    }
+
+    @Test
+    public void testSearchPage() {
+        // Pageable : 스프링 부트에서 제공하는 페이지 처리 객체
+
+        // 1 page / 20개 최신 도서정보
+        // Pageable pageable = PageRequest.of(0, 0,Direction.DESC);
+        Pageable pageable = PageRequest.of(0, 20, Sort.by("id").descending());
+        Page<Book> result = bookRepository.findAll(bookRepository.makePredicate("c", "건강"), pageable);
 
         System.out.println("TotalElements" + result.getTotalElements());
         System.out.println("TotalPage" + result.getTotalPages());

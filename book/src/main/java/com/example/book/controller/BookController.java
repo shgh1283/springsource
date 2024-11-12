@@ -16,7 +16,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.book.dto.BookDto;
 import com.example.book.dto.CategoryDto;
+import com.example.book.dto.PageRequestDto;
+import com.example.book.dto.PageResultDto;
 import com.example.book.dto.PublisherDto;
+import com.example.book.entity.Book;
 import com.example.book.service.BookService;
 
 import jakarta.validation.Valid;
@@ -33,11 +36,11 @@ public class BookController {
 
     // 리스트 추출
     @GetMapping("/list")
-    public void getList(Model model) {
+    public void getList(PageRequestDto requestDto, Model model) {
         log.info("도서 전체 목록 요청");
 
-        List<BookDto> list = bookService.getList();
-        model.addAttribute("list", list);
+        PageResultDto<BookDto, Book> result = bookService.getList(requestDto);
+        model.addAttribute("result", result);
     }
 
     // 상세조회
