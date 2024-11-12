@@ -2,33 +2,52 @@ package com.example.book.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-//entity 패키지명 하단에 작성하는 클래스는 테이블 정의하는 것과 동일함
-//memo 테이블 생성
-//메모번호(mno), 메모내용(memo_text)
-//Long => number(19), String => varchar2(255)
-//int => number(10)
-
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
-@SequenceGenerator(name = "book_seq_gen", sequenceName = "book_seq", allocationSize = 1)
+@ToString(exclude = { "category", "publisher" })
+@Setter
+@Builder
+@Getter
+@Table(name = "booktbl")
 @Entity
 public class Book extends BaseEntity {
 
+    @SequenceGenerator(name = "book_seq_gen", sequenceName = "book_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "book_seq_gen")
     @Id
-    private Long bno;
+    @Column(name = "book_id")
+    private Long id;
 
-    @Column(length = 200, nullable = false)
-    private String book;
+    @Column(nullable = false)
+    private String title;
+
+    @Column(nullable = false)
+    private String writer;
+
+    @Column(nullable = false)
+    private Integer price;
+
+    @Column(nullable = false)
+    private Integer salePrice;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Category category;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Publisher publisher;
+
 }

@@ -1,4 +1,4 @@
-package com.example.book.controller;
+package com.example.book.main.java.com.example.book.controller;
 
 import java.util.List;
 

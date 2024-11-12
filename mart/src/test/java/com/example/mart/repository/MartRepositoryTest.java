@@ -1,6 +1,8 @@
 package com.example.mart.repository;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -225,6 +227,23 @@ public class MartRepositoryTest {
         System.out.println(delivery);
 
         System.out.println(delivery.getOrder());
+
+    }
+
+    // querydsl
+    @Test
+    public void testMembers() {
+        System.out.println(orderRepository.members());
+    }
+
+    public void testJoin() {
+        List<Object[]> result = orderRepository.joinTest();
+
+        for (Object[] objects : result) {
+            System.out.println(Arrays.toString(objects));
+            System.out.println((Order) objects[0]);
+            System.out.println((Member) objects[1]);
+        }
 
     }
 }
