@@ -3,32 +3,72 @@
   <div layout:fragment="content">
     <h2>GuestBook List page</h2>
     <!-- gno, tilte, writer, regdate -->
-    <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">gno</th>
-            <th scope="col">title</th>
-            <th scope="col">writer</th>
-            <th scope="col">regdate</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr th:each="dto : ${result.dtoList}">
-            <th scope="row" th:text="${dto.gno}"></th>
-            <td th:text="${dto.title}"></td>
-            <td>
-              <a
-                th:href="@{read(gno=${dto.gno},page=${requestDto.page},size=${requestDto.size},type=${requestDto.type}, keyword=${requestDto.keyword})}"
-                th:text="${dto.title}"
-                class="text-decoration-none"
-              ></a>
-            </td>
-            <td th:text="${dto.writer}"></td>
-            <td th:text="${#temporals.format(dto.regDate,'yyyy/MM/dd')}"></td>
-          </tr>
-        </tbody>
-      </table>   
+    <div class="mb-3">
+      <label for="gno">Gno</label>
+      <input
+        type="text"
+        name="gno"
+        id="gno"
+        class="form-control"
+        readonly
+        th:value="${dto.gno}"
+      />
     </div>
+    <div class="mb-3">
+      <label for="title">Title</label>
+      <input
+        type="text"
+        name="title"
+        id="title"
+        class="form-control"
+        readonly
+        th:value="${dto.title}"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="content">Content</label>
+      <textarea
+        type="text"
+        name="content"
+        id="content"
+        cols="30"
+        readonly
+        class="form-control"
+        th:text="${dto.content}"
+      ></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label for="writer">Writer</label>
+      <input
+        type="text"
+        name="writer"
+        id="writer"
+        class="form-control"
+        readonly
+        th:value="${dto.writer}"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="regDate">RegDate</label>
+      <input
+        type="text"
+        name="regDate"
+        id="regDate"
+        class="form-control"
+        readonly
+        th:value="${#temporals.format(dto.regDate, 'yyyy/MM/dd HH:mm:ss')}"
+      />
+    </div>
+    <a
+      th:href="@{modify(gno=${dto.gno},page=${requestDto.page},size=${requestDto.size},type=${requestDto.type},keyword=${requestDto.keyword})}"
+      class="btn btn-primary"
+      >Modify</a
+    >
+    <a
+      th:href="@{list(page=${requestDto.page},size=${requestDto.size},type=${requestDto.type},keyword=${requestDto.keyword})}"
+      class="btn btn-info"
+      >List</a
+    >
   </div>
 </html>

@@ -26,20 +26,22 @@ public class GuestBookServiceImpl implements GuestBookService {
 
     @Override
     public Long register(GuestBookDto dto) {
-
-        throw new UnsupportedOperationException("Unimplemented method 'register'");
+        return guestBookRepository.save(dtoToEntity(dto)).getGno();
     }
 
     @Override
     public GuestBookDto read(Long gno) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'read'");
+
+        // GuestBook result = guestBookRepository.findById(gno).get();
+        // GeuestBookDto dto = entityToDto(result);
+        // return dto;
+
+        return entityToDto(guestBookRepository.findById(gno).get());
     }
 
     @Override
     public PageResultDto<GuestBookDto, GuestBook> list(PageRequestDto requestDto) {
-        Pageable pageable = PageRequest.of(0, 10, Sort.by("gno").descending());
-
+        Pageable pageable = requestDto.getPageable((Sort.by("gno").descending()));
         // Predicate preicate(BooleanBuilder 사용), Pageable pageable
         Page<GuestBook> result = guestBookRepository
                 .findAll(guestBookRepository.makePredicate(requestDto.getType(), requestDto.getKeyword()), pageable);
@@ -51,14 +53,19 @@ public class GuestBookServiceImpl implements GuestBookService {
 
     @Override
     public Long update(GuestBookDto dto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+
+        GuestBook guestBook = guestBookRepository.findById(dto.getGno()).get();
+
+        guestBook.setContent(dto.getContent());
+        guestBook.setTitle(dto.getTitle());
+        guestBook.setWriter(dto.getWriter());
+
+        return guestBookRepository.save(guestBook).getGno();
     }
 
     @Override
     public void delete(Long gno) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        guestBookRepository.deleteById(gno);
     }
 
 }
