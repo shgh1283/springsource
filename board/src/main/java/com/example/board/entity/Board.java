@@ -1,5 +1,8 @@
 package com.example.board.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import jakarta.persistence.Column;
@@ -9,6 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +23,7 @@ import lombok.ToString;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@ToString(exclude = { "writer", "replies" })
 @Setter
 @Builder
 @Getter
@@ -39,4 +43,8 @@ public class Board extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Member writer;
+
+    @Builder.Default
+    @OneToMany(mappedBy = "board") // 기본 Fetch 전력이 LAZY임
+    private List<Reply> replies = new ArrayList<>();
 }
