@@ -19,34 +19,31 @@ public interface BoardService {
 
     void remove(Long bno);
 
-    // dtoToEntity
-    public default Board dtoToEntity(BoardDto dto) {
-        Member member = Member
-                .builder()
-                .email(dto.getWriterEmail())
-                .build();
-
-        return Board.builder()
-                .bno(dto.getBno())
-                .content(dto.getContent())
-                .title(dto.getTitle())
-                .writer(member)
-                .build();
-
-    }
-
-    // entityToDto
+    // entity => dto
     public default BoardDto entityToDto(Board board, Member member, Long replyCnt) {
         return BoardDto.builder()
                 .bno(board.getBno())
-                .content(board.getContent())
                 .title(board.getTitle())
+                .content(board.getContent())
                 .writerEmail(member.getEmail())
                 .writerName(member.getName())
                 .regDate(board.getRegDate())
                 .updateDate(board.getUpdateDate())
                 .replyCnt(replyCnt)
                 .build();
-
     }
+
+    // dto => entity
+    public default Board dtoToEntity(BoardDto dto) {
+
+        Member member = Member.builder().email(dto.getWriterEmail()).build();
+
+        return Board.builder()
+                .bno(dto.getBno())
+                .title(dto.getTitle())
+                .content(dto.getContent())
+                .writer(member)
+                .build();
+    }
+
 }

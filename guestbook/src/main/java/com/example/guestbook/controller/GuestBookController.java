@@ -19,7 +19,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+
 
 @RequiredArgsConstructor
 @Log4j2

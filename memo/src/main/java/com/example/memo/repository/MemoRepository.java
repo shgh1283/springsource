@@ -11,7 +11,7 @@ public interface MemoRepository extends JpaRepository<Memo, Long> {
     List<Memo> findByMnoLessThan(Long mno);
 
     // where mno < 10 order by mno desc
-    List<Memo> findByMnoLessThanOrderByIdDesc(Long mno);
+    // List<Memo> findByMnoLessThanOrderByIdDesc(Long mno);
 
     // where mno >= 50 and mno <= 100 order by mno desc
     List<Memo> findByMnoBetween(Long start, Long end);

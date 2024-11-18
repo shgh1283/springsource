@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <div th:fragment="sidebar">
     <div class="border-end bg-white" id="sidebar-wrapper">
       <div class="sidebar-heading border-bottom bg-light">Board</div>
@@ -7,12 +7,12 @@
         <a
           class="list-group-item list-group-item-action list-group-item-light p-3"
           href=""
-          >list</a
+          >List</a
         >
         <a
           class="list-group-item list-group-item-action list-group-item-light p-3"
-          href="#!"
-          >Shortcuts</a
+          href="/board/create?page=1&size=10&type=&keyword="
+          >Create</a
         >
         <a
           class="list-group-item list-group-item-action list-group-item-light p-3"

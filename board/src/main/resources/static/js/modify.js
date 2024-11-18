@@ -6,7 +6,7 @@ document.querySelector(".btn-danger").addEventListener("click", (e) => {
   if (!confirm("정말로 삭제하시겠습니까?")) {
     return;
   }
-  actionForm.action = "/borad/remove";
+  actionForm.action = "/board/remove";
   actionForm.submit();
 });
 

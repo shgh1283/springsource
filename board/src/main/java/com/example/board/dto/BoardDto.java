@@ -2,20 +2,19 @@ package com.example.board.dto;
 
 import java.time.LocalDateTime;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
+
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
-@Setter
+@Data
 @Builder
-@Getter
+
 public class BoardDto {
 
     private Long bno;
@@ -29,9 +28,10 @@ public class BoardDto {
     // private String email;
     // private String name;
 
-    @NotBlank(message = "email 은 필수 입력 요소입니다.")
-    private String writerEmail;
+    @NotBlank(message = "작성자는 필수 입력 요소입니다.")
+    @Email(message = " 이메일 형식을 확인해 주세요")
     private String writerName;
+    private String writerEmail;
 
     private LocalDateTime regDate;
     private LocalDateTime updateDate;

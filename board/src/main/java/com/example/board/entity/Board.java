@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -45,6 +46,6 @@ public class Board extends BaseEntity {
     private Member writer;
 
     @Builder.Default
-    @OneToMany(mappedBy = "board") // 기본 Fetch 전력이 LAZY임
+    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE) // 기본 Fetch 전력이 LAZY임
     private List<Reply> replies = new ArrayList<>();
 }
