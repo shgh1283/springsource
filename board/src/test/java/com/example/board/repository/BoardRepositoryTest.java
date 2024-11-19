@@ -69,9 +69,9 @@ public class BoardRepositoryTest {
             Board board = Board.builder().bno(bno).build();
 
             Reply reply = Reply.builder()
-                    .board(board)
-                    .replyer("Replyer" + i)
                     .text("text" + i)
+                    .replyer("Replyer" + i)
+                    .board(board)
                     .build();
             replyRepository.save(reply);
         });
@@ -167,5 +167,17 @@ public class BoardRepositoryTest {
         List<Reply> list = replyRepository.findByBoardOrderByRno(board);
 
         list.forEach(b -> System.out.println(b));
+    }
+
+    @Test
+    public void testReplyUpdate() {
+        // 댓글 수정
+
+        Reply reply = replyRepository.findById(113L).get();
+        System.out.println("reply" + reply);
+        // 내용 수정
+        reply.setText("내용 수정");
+        System.out.println(replyRepository.save(reply));
+
     }
 }
