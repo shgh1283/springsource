@@ -12,20 +12,25 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @EnableWebSecurity // 웹에 적용할 시큐리티 크래스 포함
 @Configuration // 환경설정 파일
-public class SecurityConfid {
+public class SecurityConfig {
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/", "/sample/guest").permitAll()
+                        .requestMatchers("/", "/sample/guest", "/auth").permitAll()
                         .requestMatchers("/sample/member").hasRole("USER")
                         .requestMatchers("/sample/admin").hasRole("ADMIN"))
-                .formLogin(Customizer.withDefaults());
+                // .formLogin(Customizer.withDefaults()); :시큐리티가 제공하는 로그인 페이지
+                .formLogin(login -> login.loginPage("/member/login").permitAll())
+                .logout(logout -> logout
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
+                        .logoutSuccessUrl("/"));
 
         return http.build();
     }
