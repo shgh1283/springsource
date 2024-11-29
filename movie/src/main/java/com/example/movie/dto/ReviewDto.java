@@ -19,10 +19,10 @@ public class ReviewDto {
 
     private String text;
 
-    // Movie 의 mno 담기
+    // Movie의 mno 담기
     private Long mno;
 
-    // Member mid, nickname, email
+    // Member mid,nickname,email
     private Long mid;
     private String email;
     private String nickname;

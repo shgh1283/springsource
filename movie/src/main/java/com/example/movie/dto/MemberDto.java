@@ -14,16 +14,15 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 public class MemberDto {
-
     private Long mid;
 
     private String email;
 
     private String password;
-
     private String nickname;
 
     private MemberRole role;
+
     private LocalDateTime regDate;
     private LocalDateTime updateDate;
 }
