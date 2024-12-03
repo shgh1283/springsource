@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.annotation.Commit;
 
 import com.example.movie.entity.Member;
 import com.example.movie.entity.constant.MemberRole;
@@ -18,6 +19,8 @@ public class MemberRepositoryTest {
 
     @Autowired
     private MemberRepository memberRepository;
+    @Autowired
+    private ReviewRepository reviewRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -45,8 +48,19 @@ public class MemberRepositoryTest {
     @Test
     @Transactional
     public void testUpdate2() {
+
         memberRepository.updateNickname("Akaps", "user3@naver.com");
 
+    }
+
+    @Commit
+    @Transactional
+    @Test
+    public void testDelete() {
+
+        reviewRepository.deleteByMember(Member.builder().mid(48L).build());
+
+        memberRepository.deleteById(48L);
     }
 
 }
